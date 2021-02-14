@@ -474,7 +474,6 @@
               </v-card>
             </v-col>
           </v-col>
-
         </v-row>
       </v-container>
 
