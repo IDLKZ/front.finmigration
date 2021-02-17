@@ -501,7 +501,7 @@ export default {
         {url:"",icon:"mdi-facebook"},
         {url:"",icon:"mdi-twitter"},
         {url:"",icon:"mdi-instagram"},
-        {url:"",icon:"mdi-pinterest"},
+        {url:"",icon:"mdi-telegram"},
         {url:"",icon:"mdi-youtube"}
       ],
     }
