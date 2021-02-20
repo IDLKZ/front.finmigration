@@ -9,11 +9,13 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@cookieseater/vue-yandex-share": "^0.2.1",
     "@nuxtjs/axios": "^5.13.1",
     "core-js": "^3.8.3",
     "nuxt": "^2.14.12"
   },
   "devDependencies": {
+    "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/vuetify": "^1.11.3"
   }
 }

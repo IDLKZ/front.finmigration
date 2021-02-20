@@ -86,7 +86,18 @@ export default {
         {url:"",title:"О нас"},
       ]
     }
+  },
+
+  async created(){
+    let data = await this.$axios.$get("/get-categories");
+    let header_links = [];
+    for (let i = 0 ; i < data.length; i++){
+      header_links[i] = {url:'/category/'+data[i].alias, title:data[i].title}
+    }
+    this.header_links = header_links;
   }
+
+
 }
 </script>
 
