@@ -1,22 +1,22 @@
 <template>
-  <div class="my-5 py-5">
+  <div>
     <section>
       <v-container>
         <!--      Главные вести-->
         <v-row class="my-2">
           <!--        Главная трендовая новость-->
           <v-col cols="12" md="8">
-            <v-btn class="btn btn-primary mb-2" color="error"> <v-icon dark>
+            <v-btn class="btn btn-primary mb-2" color="#5168E1"> <v-icon dark>
               mdi-new-box
             </v-icon>В тренде</v-btn>
             <v-card link to="/">
               <v-img
                 height="350"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                src="https://im0-tub-kz.yandex.net/i?id=bdab36cc566fce560470fc689c23b161&n=13&exp=1"
                 gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
               >
-                <div class="main-news px-2">
-                  <v-btn depressed class="btn btn-primary mb-2" color="primary">
+                <div class="main-news px-5">
+                  <v-btn depressed class="btn btn-primary mb-2" color="#5168E1">
                     Политика
                   </v-btn>
                   <div class="text-h4 white--text font-weight-medium">President Obama Holds his Final Press Conference</div>
@@ -28,17 +28,20 @@
           </v-col>
           <!--        Актуальные главные-->
           <v-col cols="12" md="4">
-            <v-btn class="btn btn-primary mb-2" color="primary"> <v-icon dark>
-              mdi-new-box
-            </v-icon>Актуальные</v-btn>
-            <v-col v-for="(item, i) in 2" :key="i" cols="12">
+            <div class="mb-4">
+            <template>
+                Актуальные
+              <v-progress-linear value="25" background-color="#ececec"></v-progress-linear>
+            </template>
+            </div>
+            <v-col v-for="(item, i) in 2" :key="i" cols="12" class="pl-0 pt-0">
               <v-card color="white" light link to="/">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
-                    <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                    <v-img  src="https://im0-tub-kz.yandex.net/i?id=4bd99e09e386ad730e3e009253cdb2fe-sr&n=13&exp=1"></v-img>
                   </v-avatar>
                   <div>
-                    <v-card-title class="text-h-6">
+                    <v-card-title class="text-h-8">
                       President Obama Holds his Final Press Conference
                     </v-card-title>
                   </div>
@@ -52,16 +55,21 @@
         <!--      Начало последних новостей-->
         <v-row class="my-2">
           <v-col cols="12" md="8">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Последние новости:</h3>
+            <div class="mb-4">
+              <template>
+                <strong>Последние <span class="color_blue">Материалы</span></strong>
+                <v-progress-linear value="5" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
             <v-row>
               <v-col cols="12" md="6">
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                <v-img src="http://gazetesanal.com/wp-content/uploads/2020/12/image-700x496.png"></v-img>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card-title>
+                <v-card-title class="pt-0">
                   President Obama Holds his Final Press Conference
                 </v-card-title>
-                <v-card-subtitle class="text-subtitle-1 font-weight-regular">Автор:Админ  <v-icon>mdi-clock-outline</v-icon>DECEMBER 30, 2016</v-card-subtitle>
+                <v-card-subtitle class="text-subtitle-1 s_title font-weight-regular">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</v-card-subtitle>
                 <p class="text-subtitle-1 px-3">
                   It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...
                 </p>
@@ -83,19 +91,19 @@
                   ></v-img>
 
                   <v-card-title>
-                    Top western road trips
+                    Jokowi Seeks Investors for Indonesia’s Airports to Curb Deficit
                   </v-card-title>
 
-                  <v-card-subtitle>
-                    1,000 miles of wonder
+                  <v-card-subtitle class="mt-2">
+                    <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016
                   </v-card-subtitle>
 
-                  <v-card-actions>
-                    <v-btn>
-                      Читать далее
-                    </v-btn>
+<!--                  <v-card-actions>-->
+<!--                    <v-btn>-->
+<!--                      Читать далее-->
+<!--                    </v-btn>-->
 
-                  </v-card-actions>
+<!--                  </v-card-actions>-->
                 </v-card>
 
 
@@ -106,21 +114,21 @@
 
           </v-col>
           <v-col cols="12" md="4">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости в тренде:</h3>
-            <v-col cols="12" md="12" >
-              <v-card link to="/" class="mx-auto" max-width="344">
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
+            <div class="mb-2 ml-2">
+              <template>
+                <strong>В <span class="color_blue">Тренде</span></strong>
+                <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
+            <v-col cols="12" md="12" class="pt-1">
+              <v-card link to="/" max-width="344">
+                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="200px"></v-img>
                 <v-card-title>
-                  Top western road trips
+                  Benjamin Franklin S Method Of Habit Formation
                 </v-card-title>
                 <v-card-subtitle>
-                  1,000 miles of wonder
+                  102 SHARES
                 </v-card-subtitle>
-                <v-card-actions>
-                  <v-btn>
-                    Читать далее
-                  </v-btn>
-                </v-card-actions>
               </v-card>
             </v-col>
             <v-col v-for="(item, i) in 2" :key="i" cols="12">
@@ -139,7 +147,7 @@
             </v-col>
           </v-col>
           <v-col cols="12" class="text-center">
-            <v-btn color="primary">Все последние новости</v-btn>
+            <v-btn color="default">Все последние новости</v-btn>
           </v-col>
         </v-row>
         <!--      Конец последних новостей-->
@@ -147,52 +155,32 @@
         <!--Новости в категории 1-->
         <v-row class="my-2">
           <v-col cols="12" md="8">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости категории 1:</h3>
-            <v-row>
-              <v-col cols="12" md="6">
+            <template>
+              <strong>Жизнь</strong>
+              <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+            </template>
+            <v-row class="mt-1">
+              <v-col cols="12" md="6" v-for="(item,i) in 2" :key="i">
                 <v-card>
                   <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                    src="https://miro.medium.com/max/1080/1*-vTChpfjFWY0vfUMKMHMWQ.jpeg"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    height="250px"
                   >
-                    <v-card-title>Новости категории 1</v-card-title>
+                    <v-card-title>Goldman Sees Indonesia Less Vulnerable to Selloff Than in 2013</v-card-title>
                   </v-img>
                 </v-card>
                 <v-card v-for="i in 2" :key="i" class="my-2" color="white" light link to="/">
                   <div class="d-flex flex-no-wrap justify-space-between">
                     <v-avatar class="ma-3" size="125" tile>
-                      <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                      <v-img  src="https://i0.wp.com/traveltherapists.it/wp-content/uploads/2019/11/woman-holding-green-yellow-and-white-umbrella-standing-near-1344265-scaled.jpg"></v-img>
                     </v-avatar>
                     <div>
                       <v-card-title class="text-subtitle-1 font-weight-bold">
-                        President Obama Holds his Final Press Conference
+                        3 Things Entrepreneurs Need To Do When Dealing With Depression
                       </v-card-title>
-                    </div>
-                  </div>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-card>
-                  <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                    class="white--text align-end"
-                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
-                  >
-                    <v-card-title>Новости категории 1</v-card-title>
-                  </v-img>
-                </v-card>
-                <v-card v-for="i in 2" :key="i" class="my-2" color="white" light link to="/">
-                  <div class="d-flex flex-no-wrap justify-space-between">
-                    <v-avatar class="ma-3" size="125" tile>
-                      <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-                    </v-avatar>
-                    <div>
-                      <v-card-title class="text-subtitle-1 font-weight-bold">
-                        President Obama Holds his Final Press Conference
-                      </v-card-title>
+                      <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
                     </div>
                   </div>
                 </v-card>
@@ -200,22 +188,23 @@
             </v-row>
           </v-col>
           <v-col cols="12" md="4">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости в тренде:</h3>
+            <div class="mb-2 ml-2">
+              <template>
+                <strong>Популярное</strong>
+                <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
             <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-              <v-card>
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
-                  <v-card-title>Новости категории 1</v-card-title>
-                </v-img>
+              <v-card link to="/" max-width="344">
+                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
+                <v-card-title>
+                  Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
+                </v-card-title>
+                <v-card-subtitle>
+                  <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                </v-card-subtitle>
               </v-card>
             </v-col>
-          </v-col>
-          <v-col cols="12" class="text-center">
-            <v-btn color="primary">Все новости Категории 1</v-btn>
           </v-col>
         </v-row>
         <!--Конец в новости в категории 1-->
@@ -223,7 +212,12 @@
         <!--Начало новостей в категории 2-->
         <v-row class="my-2">
           <v-col cols="12" md="8">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости категории 2:</h3>
+            <div class="mb-4">
+              <template>
+                <strong>БИЗНЕС</strong>
+                <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
             <v-row>
               <v-col cols="12" md="6">
                 <v-card
@@ -233,16 +227,17 @@
                   max-width="344"
                 >
                   <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                    src="https://images.pexels.com/photos/5305802/pexels-photo-5305802.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                     height="200px"
                   ></v-img>
 
                   <v-card-title>
-                    Top western road trips
+                    See The Unmatched Beauty Of The Great Lakes <br>
+                    <small class="s_title my-2">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
                   </v-card-title>
 
                   <v-card-subtitle>
-                    1,000 miles of wonder
+                    For most people, buying a new computer does not have to be as stressful as buying a new car. Nor does it have to be as expensive …
                   </v-card-subtitle>
 
                   <v-card-actions>
@@ -254,10 +249,10 @@
                 </v-card>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card v-for="i in 3" :key="i" class="my-2" color="white" light link to="/">
+                <v-card v-for="i in 3" :key="i" class="mb-2" color="white" light link to="/">
                   <div class="d-flex flex-no-wrap justify-space-between">
                     <v-avatar class="ma-3" size="125" tile>
-                      <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                      <v-img  src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173"></v-img>
                     </v-avatar>
                     <div>
                       <v-card-title class="text-subtitle-1 font-weight-bold">
@@ -270,22 +265,25 @@
             </v-row>
           </v-col>
           <v-col cols="12" md="4">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости в тренде:</h3>
-            <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-              <v-card>
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
-                  <v-card-title>Новости категории 2</v-card-title>
-                </v-img>
-              </v-card>
+            <div class="mb-2 ml-2">
+              <template>
+                <strong>Популярное</strong>
+                <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
+            <v-col cols="12" md="12">
+              <v-col cols="12" md="12" v-for="i in 2 " :key="i">
+                <v-card link to="/" max-width="344">
+                  <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
+                  <v-card-title>
+                    Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                  </v-card-subtitle>
+                </v-card>
+              </v-col>
             </v-col>
-          </v-col>
-          <v-col cols="12" class="text-center">
-            <v-btn color="primary">Все новости Категории 2</v-btn>
           </v-col>
         </v-row>
         <!--Конец в новости в категории 2-->
@@ -295,37 +293,43 @@
     <section style="background-color: #212121">
       <v-container>
       <v-row class="py-5" >
-        <v-col cols="12" md="4">
-          <v-card>
+        <v-col cols="12" md="6" class="p-0">
+          <v-card class="p-0">
             <v-img
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="420px"
+              height="440px"
+            >
+              <div class="main-news px-5">
+                <v-btn depressed class="btn btn-primary mb-2" color="#5168E1">
+                  FITNESS
+                </v-btn>
+                <div class="text-h6 white--text font-weight-medium">Harness The Power Of Words In Your Life</div>
+                <small>Автор:Админ  <v-icon small class="white--text">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+              </div>
+            </v-img>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="3" class="p-0">
+          <v-card class="p-0" v-for="i in 2" :key="i">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="220px"
             >
               <v-card-title>Новости категории 2</v-card-title>
             </v-img>
           </v-card>
         </v-col>
-        <v-col cols="12" md="4">
-          <v-card class="my-2 mx-2" v-for="i in 2" :key="i">
+        <v-col cols="12" md="3" class="p-0">
+          <v-card class="p-0" v-for="i in 2" :key="i">
             <v-img
               src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-card-title>Новости категории 2</v-card-title>
-            </v-img>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-card class="my-2 mx-2" v-for="i in 2" :key="i">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
+              height="220px"
             >
               <v-card-title>Новости категории 2</v-card-title>
             </v-img>
@@ -340,19 +344,23 @@
       <v-container>
         <v-row>
         <v-col cols="12" md="8">
-          <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости в категории 3:</h3>
+          <div class="mb-4">
+            <template>
+              <strong>ТЕХНО</strong>
+              <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+            </template>
+          </div>
           <v-row>
             <v-col cols="12" md="6">
-              <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+              <v-img src="https://www.ekonomihaberler.com/wp-content/uploads/2020/04/EFT-Hesaba-Ne-Zaman-Ge%C3%A7er-3.jpg"></v-img>
             </v-col>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="6" class="pt-0">
               <v-card-title>
-                President Obama Holds his Final Press Conference
+                Why Millennials Need to Save Twice as Much as Boomers Did
               </v-card-title>
-              <v-card-subtitle class="text-subtitle-1 font-weight-regular">Автор:Админ  <v-icon>mdi-clock-outline</v-icon>DECEMBER 30, 2016</v-card-subtitle>
+              <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
               <p class="text-subtitle-1 px-3">
-                It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...
-              </p>
+                It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...              </p>
               <v-btn>Читать далее</v-btn>
             </v-col>
             <v-col cols="12" md="6" v-for="i in 2" :key="i">
@@ -365,6 +373,7 @@
                     <v-card-title class="text-subtitle-1 font-weight-bold">
                       President Obama Holds his Final Press Conference
                     </v-card-title>
+                    <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
                   </div>
                 </div>
               </v-card>
@@ -372,26 +381,26 @@
           </v-row>
         </v-col>
         <v-col cols="12" md="4">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Новости в тренде:</h3>
-            <v-col cols="12" md="12" v-for="i in 2" :key="i">
-              <v-card link to="/" class="mx-auto" max-width="344">
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
+          <div class="mb-2 ml-2">
+            <template>
+              <strong>Популярное</strong>
+              <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+            </template>
+          </div>
+            <v-col cols="12" md="12" v-for="i in 2 " :key="i">
+              <v-card link to="/" max-width="344">
+                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
                 <v-card-title>
-                  Top western road trips
+                  Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
                 </v-card-title>
                 <v-card-subtitle>
-                  1,000 miles of wonder
+                  <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
                 </v-card-subtitle>
-                <v-card-actions>
-                  <v-btn>
-                    Читать далее
-                  </v-btn>
-                </v-card-actions>
               </v-card>
             </v-col>
-          </v-col>
+        </v-col>
           <v-col cols="12" class="text-center">
-            <v-btn color="primary">Все новости Категории 3</v-btn>
+            <v-btn color="default">Все новости Категории 3</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -420,32 +429,48 @@
       <v-container>
         <v-row>
           <v-col cols="12" md="8">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Конференции</h3>
+            <div class="mb-4">
+              <template>
+                <strong>Конференции</strong>
+                <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
             <v-row v-for="i in 5" :key="i">
               <v-col cols="12" md="6">
                 <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
               </v-col>
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="6" class="pt-0">
                 <v-card-title>
-                  President Obama Holds his Final Press Conference
+                  <h3>Steps In Installing Rack Mount Lcd Monitors</h3>
                 </v-card-title>
-                <v-card-subtitle class="text-subtitle-1 font-weight-regular">Автор:Админ  <v-icon>mdi-clock-outline</v-icon>DECEMBER 30, 2016</v-card-subtitle>
-                <p class="text-subtitle-1 px-3">
-                  It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...
-                </p>
+                <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                <p class="text-subtitle-1 px-3 mt-2">
+                  It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...              </p>
                 <v-btn>Читать далее</v-btn>
               </v-col>
             </v-row>
           </v-col>
           <v-col cols="12" md="4">
-            <h3 class="text-weight-bold pl-3" style="color: #2E9FFF">Мы в соц сетях:</h3>
-            <div class="pt-md-2 text-center text-md-left">
-              <v-btn color="error" class="px-2 white--text" v-for="(item,index) in social" :key="index">
+            <div class="mb-2 ml-2">
+              <template>
+                <strong>Социальные сети</strong>
+                <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
+
+            <div class="pt-md-2 text-md-center mt-4">
+              <v-btn color="error" class="px-2 white--text social" v-for="(item,index) in social" :key="index">
                 <v-icon style="margin: 0 auto!important;">{{item.icon}}</v-icon>
               </v-btn>
             </div>
-            <v-col v-for="(item, i) in 3" :key="i" cols="12">
-              <v-card color="white" light link to="/">
+            <v-col cols="12">
+              <div class="mb-4 ml-2">
+                <template>
+                  <strong>Не упустите</strong>
+                  <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+                </template>
+              </div>
+              <v-card v-for="(item, i) in 3" :key="i" color="white" light link to="/" class="mb-2">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
                     <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
@@ -461,18 +486,24 @@
             <v-col cols="12">
                 <v-sheet height="340px" color="yellow">Ads</v-sheet>
             </v-col>
-            <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-              <v-card>
-                <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
-                  <v-card-title>Новости категории 1</v-card-title>
-                </v-img>
-              </v-card>
-            </v-col>
+              <div class="mb-2 ml-2">
+                <template>
+                  <strong>Вас заинтересует</strong>
+                  <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+                </template>
+              </div>
+              <v-col cols="12" md="12" v-for="i in 2 " :key="i">
+                <v-card link to="/" max-width="344">
+                  <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
+                  <v-card-title>
+                    Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                  </v-card-subtitle>
+                </v-card>
+              </v-col>
+
           </v-col>
         </v-row>
       </v-container>
@@ -501,8 +532,9 @@ export default {
         {url:"",icon:"mdi-facebook"},
         {url:"",icon:"mdi-twitter"},
         {url:"",icon:"mdi-instagram"},
-        {url:"",icon:"mdi-telegram"},
-        {url:"",icon:"mdi-youtube"}
+        {url:"",icon:"mdi-pinterest"},
+        {url:"",icon:"mdi-youtube"},
+        {url:"",icon:"mdi-linkedin"},
       ],
     }
   }
@@ -513,5 +545,21 @@ export default {
   position: absolute;
   bottom: 20px;
 }
-
+  .btn {
+    color: white;
+  }
+  .s_title {
+    font-size: 12px!important;
+    color: #7F828B;
+  }
+  .color_blue {color:#5168E1}
+.v-card__title {line-height: normal!important;font-size: 16px!important;}
+  .p-0 {padding: 0!important;}
+.social {
+  width: 115px!important;
+  height: 115px!important;
+  border-radius: 0;
+  background-color: transparent!important;
+  color: black!important;
+}
 </style>
