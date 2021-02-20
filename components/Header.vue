@@ -1,5 +1,7 @@
 <template>
-<div>
+<section>
+<!--  ДЕКСТОПНАЯ ВЕРСИЯ-->
+  <div class="header_main_md">
   <v-system-bar
     window
     dark
@@ -47,13 +49,152 @@
     </v-col>
     <v-col cols="12" md="12">
       <v-tabs show-arrows>
-        <v-tab v-for="(link,index) in header_links" :key="index" link :to="link.url">{{link.title}}</v-tab>
+          <template v-for="(link,index) in header_links" >
+               <v-tab  v-if="!link.category"  :key="index" link :to="link.url">{{link.title}}</v-tab>
+        <v-menu
+          v-else-if="link.category"
+          :key="index"
+          bottom
+          left
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              text
+              class="align-self-center mr-4"
+              v-bind="attrs"
+              v-on="on"
+              color="#877777"
+            >
+              {{link.title}}
+              <v-icon right>
+                mdi-menu-down
+              </v-icon>
+            </v-btn>
+          </template>
+
+          <v-list class="grey lighten-3">
+            <v-list-item
+              v-if="link.category.length"
+              v-for="item in link.category"
+              :key="item.title"
+              link
+              :to="item.url"
+            >
+              {{ item.title }}
+            </v-list-item>
+          </v-list>
+        </v-menu>
+          </template>
+
+
+
       </v-tabs>
     </v-col>
   </v-row>
 </v-container>
   <hr class="header_hr">
-</div>
+  </div>
+
+<!--  МОБИЛЬНАЯ ВЕРСИЯ-->
+  <div class="header_main_sm">
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      dark
+      color="#212121"
+    >
+      <v-list-item>
+
+        <v-list-item-content>
+          <h1 class="text-weight-bold" style="color: #5168E1">FINMIGRATION</h1>
+        </v-list-item-content>
+      </v-list-item>
+      <template>
+        <v-list
+          dense
+          rounded
+          v-for="item in header_links"
+          :key="item.title"
+
+        >
+          <v-list-item
+            link
+            :to="item.url"
+            v-if="!item.category"
+
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-group
+            no-action
+            v-else-if="item.category"
+            :prepend-icon="item.icon"
+          >
+            <template v-slot:activator>
+              <v-list-item-title>{{item.title}}</v-list-item-title>
+            </template>
+
+            <v-list-item
+              v-for="(i, j) in item.category "
+              :key="i"
+              link
+              :to="i.url"
+            >
+              <v-list-item-title v-text="i.title"></v-list-item-title>
+
+            </v-list-item>
+          </v-list-group>
+        </v-list>
+      </template>
+      <v-tabs show-arrows background-color="transparent">
+        <v-tab v-for="(link, index) in system_links" :key="index" link :to="link.url" class="system_link">{{link.title}}</v-tab>
+      </v-tabs>
+
+    </v-navigation-drawer>
+
+    <v-system-bar
+    window
+    dark
+    class="px-0"
+    height="auto"
+    color="#212121"
+  >
+    <v-container class="py-0">
+      <v-row>
+        <v-col cols="12">
+          <div class="pt-md-2 text-center text-md-right">
+            <v-btn icon v-for="(item,index) in social" :key="index">
+              <v-icon style="margin: 0 auto!important;">{{item.icon}}</v-icon>
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-system-bar>
+    <v-container>
+      <v-row class="py-2">
+        <v-col cols="8" sm="8" class="py-5">
+          <h1 class="text-weight-bold" style="color: #5168E1">FINMIGRATION</h1>
+        </v-col>
+        <v-col cols="4" sm="4" class="d-flex justify-center align-center">
+         <v-btn outlined @click="drawer = !drawer"><v-icon>mdi-view-module</v-icon></v-btn>
+        </v-col>
+
+      </v-row>
+    </v-container>
+
+  </div>
+
+
+</section>
 </template>
 
 <script>
@@ -74,34 +215,43 @@ export default {
         {url:"",icon:"mdi-pinterest"},
         {url:"",icon:"mdi-youtube"}
       ],
-      header_links:[
-        {url:"",title:"Главная"},
-        {url:"",title:"Жизнь"},
-        {url:"",title:"Бизнес"},
-        {url:"",title:"Техно"},
-        {url:"",title:"Конференции"},
-        {url:"",title:"Предстоящие конференции"},
-        {url:"",title:"Справочник"},
-        {url:"",title:"Спецпроекты"},
-        {url:"",title:"О нас"},
-      ]
+      header_links:[],
+      drawer:false,
     }
   },
-
-  async created(){
-    let data = await this.$axios.$get("/get-categories");
-    let header_links = [];
-    for (let i = 0 ; i < data.length; i++){
-      header_links[i] = {url:'/category/'+data[i].alias, title:data[i].title}
+ async beforeMount() {
+    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"",title:"Жизнь",icon:"mdi-heart"}, {url:"",title:"Конференции",icon:"mdi-home"}, {url:"",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"",title:"Справочник",icon:"mdi-book"}, {url:"",title:"Спецпроекты",icon:"mdi-drawing-box"}, {url:"",title:"О нас",icon:"mdi-account-multiple"},]
+    let all_category = await this.$axios.$get("/get-categories");
+    if(all_category.length){
+      let categories = {url:"",title:"Категории",category:[], icon:"mdi-view-list"};
+      for (let i = 0; i<all_category.length; i++){
+        categories.category.push({url:"/category/" + all_category[i].alias, title:all_category[i].title});
+      }
+      header_links.splice(1,0,categories);
     }
     this.header_links = header_links;
-  }
-
-
+  },
 }
 </script>
 
 <style scoped>
+@media screen and (min-width: 900px) {
+  .header_main_md{
+    display: block!important;
+  }
+  .header_main_sm{
+    display: none!important;
+  }
+
+}
+@media screen and (max-width: 900px){
+  .header_main_md{
+    display: none!important;
+  }
+  .header_main_sm{
+    display: block!important;
+  }
+}
 .system_link{
   font-size: 12px!important;
 }
