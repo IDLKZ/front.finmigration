@@ -207,7 +207,6 @@ export default {
   },
   watch:{
     current_page(){
-      console.log(this.current_page);
       this.loadPage();
     }
   },

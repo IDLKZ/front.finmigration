@@ -220,7 +220,7 @@ export default {
     }
   },
  async beforeMount() {
-    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"",title:"Жизнь",icon:"mdi-heart"}, {url:"",title:"Конференции",icon:"mdi-home"}, {url:"",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"",title:"Справочник",icon:"mdi-book"}, {url:"",title:"Спецпроекты",icon:"mdi-drawing-box"}, {url:"",title:"О нас",icon:"mdi-account-multiple"},]
+    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"",title:"Жизнь",icon:"mdi-heart"}, {url:"/conference",title:"Конференции",icon:"mdi-home"}, {url:"/conference/future-conference",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"",title:"Справочник",icon:"mdi-book"}, {url:"",title:"Спецпроекты",icon:"mdi-drawing-box"}, {url:"",title:"О нас",icon:"mdi-account-multiple"},]
     let all_category = await this.$axios.$get("/get-categories");
     if(all_category.length){
       let categories = {url:"",title:"Категории",category:[], icon:"mdi-view-list"};

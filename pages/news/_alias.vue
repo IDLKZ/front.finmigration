@@ -36,6 +36,8 @@
             class="ma-2"
             outlined
             color="indigo"
+            link
+            :to="'/tag/' + item.title"
           >
             {{item.title}}
           </v-btn>
