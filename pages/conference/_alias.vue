@@ -25,6 +25,13 @@
                 <div class="my-2">
                   <h1 class="text-uppercase" style="color: #5168E1">Хочу участвовать!</h1>
                 </div>
+                <v-alert
+                  :type="validate == true ? 'success' : 'error' "
+                  v-if="validate !== null"
+                  dismissible
+                >
+                  {{validate == true ? "Успешно сдано" : "Заполните все поля!"}}
+                </v-alert>
                 <v-form
                   ref="form"
                   lazy-validation
@@ -34,24 +41,29 @@
                     required
                     outlined
                     color="#5168E1"
+                    v-model="name"
                   ></v-text-field>
                   <v-text-field
                     label="Номер телефона"
                     required
                     outlined
                     color="#5168E1"
+                    v-model="phone"
                   ></v-text-field>
                   <v-text-field
                     label="Email"
                     required
                     outlined
                     color="#5168E1"
+                    v-model="email"
                   ></v-text-field>
                   <div class="text-center">
                     <v-btn
                       color="#5168E1"
                       x-large
                       dark
+                      @click="sendForm"
+                      v-if=""
                     >
                       Участвовать!
                     </v-btn>
@@ -87,10 +99,57 @@
 
 <script>
 import YandexShare from '@cookieseater/vue-yandex-share';
+import { validationMixin } from 'vuelidate';
+import { required, minLength,email } from "vuelidate/lib/validators";
 export default {
   name: "alias",
+  async validate({$axios, route}){
+    const conference = await $axios.$get("/conference-show/" + route.params.alias);
+    if(conference.id !== undefined){
+      return true;
+    }
+    else{
+      return  false;
+    }
+  },
+  data(){
+    return{
+        email:"",
+        name:"",
+        phone:"",
+        validate:null
+
+    }
+  },
+  validations: {
+    email: {
+      email,
+      required
+    },
+    name: {
+      required,
+    },
+    phone: {
+      required
+    }
+  },
   components:{
     YandexShare
+  },
+  methods:{
+    sendForm:function () {
+      let self = this;
+    if(!this.$v.$invalid){
+      this.validate = true;
+      this.$axios.$post("/participant-create",{name:this.name,email:this.email,phone:this.phone,conference_id:self.conference.id})
+      this.name = "";
+      this.email = "";
+      this.phone = "";
+    }
+    else{
+      self.validate = false;
+    }
+    }
   },
   async asyncData({$axios,route}){
     let items =  [{text: 'Главная', disabled: false, to: '/',href:"/"}, {text: 'Конференции', disabled: false, to: '/conference',href: '/conference',},];

@@ -67,19 +67,19 @@
     <section class="mt-3">
       <v-container>
         <v-row>
+          <v-col cols="12" md="12" style="padding: 0!important;">
+            <v-breadcrumbs :items="items" divider=">" class="pl-0">
+              <template v-slot:item="{ item }">
+                <v-breadcrumbs-item
+                  :href="item.href"
+                  :disabled="item.disabled"
+                >
+                  {{ item.text.toUpperCase() }}
+                </v-breadcrumbs-item>
+              </template>
+            </v-breadcrumbs>
+          </v-col>
           <v-col cols="12" md="9" class="pl-0">
-            <template>
-              <v-breadcrumbs :items="items" divider=">" class="pl-0">
-                <template v-slot:item="{ item }">
-                  <v-breadcrumbs-item
-                    :href="item.href"
-                    :disabled="item.disabled"
-                  >
-                    {{ item.text.toUpperCase() }}
-                  </v-breadcrumbs-item>
-                </template>
-              </v-breadcrumbs>
-            </template>
             <h1 class="mb-3">{{news["category"]}}</h1>
             <v-row v-for="(item,index) in news['news'].data" :key="index + item.title" class="mt-4">
               <v-col cols="12" md="6" >
@@ -187,7 +187,14 @@
 
 <script>
 export default {
-
+  async validate({$axios, route}){
+      if(route.params.alias == null){
+        return false;
+      }
+      else{
+        return true;
+      }
+  },
   name: "category",
   data() {
     return {

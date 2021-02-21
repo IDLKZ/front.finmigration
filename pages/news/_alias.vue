@@ -97,6 +97,16 @@ export default {
   components:{
     YandexShare
   },
+  async validate({$axios, route}){
+    const news = await $axios.$get("/news/" + route.params.alias);
+    if(news.id !== undefined){
+      return true;
+    }
+    else{
+      return  false;
+    }
+  },
+
   data() {
     return {
       items: [

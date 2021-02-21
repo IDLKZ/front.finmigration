@@ -203,10 +203,10 @@ export default {
   data(){
     return{
       system_links:[
-        {url:"",title:"О нас"},
-        {url:"",title:"Реклама"},
-        {url:"",title:"Карьера"},
-        {url:"",title:"Контакты"},
+        {url:"/about",title:"О нас"},
+        {url:"/contact",title:"Реклама"},
+        {url:"/contact",title:"Карьера"},
+        {url:"/contact",title:"Контакты"},
       ],
       social:[
         {url:"",icon:"mdi-facebook"},
@@ -220,7 +220,7 @@ export default {
     }
   },
  async beforeMount() {
-    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"",title:"Жизнь",icon:"mdi-heart"}, {url:"/conference",title:"Конференции",icon:"mdi-home"}, {url:"/conference/future-conference",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"",title:"Справочник",icon:"mdi-book"}, {url:"",title:"Спецпроекты",icon:"mdi-drawing-box"}, {url:"",title:"О нас",icon:"mdi-account-multiple"},]
+    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"/conference",title:"Конференции",icon:"mdi-home"}, {url:"/conference/future-conference",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"/about",title:"О нас",icon:"mdi-account-multiple"}, {url:"/contact",title:"Контакты",icon:"mdi-drawing-box"}]
     let all_category = await this.$axios.$get("/get-categories");
     if(all_category.length){
       let categories = {url:"",title:"Категории",category:[], icon:"mdi-view-list"};

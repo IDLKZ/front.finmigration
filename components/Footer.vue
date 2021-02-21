@@ -77,25 +77,19 @@ export default {
         {url:"",icon:"mdi-pinterest"},
         {url:"",icon:"mdi-youtube"}
       ],
-      header_links:[
-        {url:"",title:"Главная"},
-        {url:"",title:"Жизнь"},
-        {url:"",title:"Бизнес"},
-        {url:"",title:"Техно"},
-        {url:"",title:"Конференции"},
-        {url:"",title:"Предстоящие конференции"},
-        {url:"",title:"Справочник"},
-        {url:"",title:"Спецпроекты"},
-        {url:"",title:"О нас"},
-      ],
+      header_links:[],
       system_links:[
-        {url:"",title:"О нас"},
-        {url:"",title:"Реклама"},
-        {url:"",title:"Карьера"},
-        {url:"",title:"Контакты"},
+        {url:"/about",title:"О нас"},
+        {url:"/contact",title:"Реклама"},
+        {url:"/contact",title:"Карьера"},
+        {url:"/contact",title:"Контакты"},
       ],
     }
-  }
+  },
+  async beforeMount() {
+    let header_links=[{url:"/",title:"Главная",icon:"mdi-home"}, {url:"/conference",title:"Конференции",icon:"mdi-home"}, {url:"/conference/future-conference",title:"Предстоящие конференции",icon:"mdi-video-account"}, {url:"/about",title:"О нас",icon:"mdi-account-multiple"}, {url:"/contact",title:"Контакты",icon:"mdi-drawing-box"}]
+    this.header_links = header_links;
+  },
 }
 </script>
 
