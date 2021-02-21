@@ -9,18 +9,19 @@
             <v-btn class="btn btn-primary mb-2" color="#5168E1"> <v-icon dark>
               mdi-new-box
             </v-icon>В тренде</v-btn>
-            <v-card link to="/">
+            <v-card link :to="'/news/'+ trend.alias">
               <v-img
                 height="350"
-                src="https://im0-tub-kz.yandex.net/i?id=bdab36cc566fce560470fc689c23b161&n=13&exp=1"
+                :src="$store.state.image + trend.img"
                 gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
               >
                 <div class="main-news px-5">
                   <v-btn depressed class="btn btn-primary mb-2" color="#5168E1">
-                    Политика
+                    {{trend.category.title}}
                   </v-btn>
-                  <div class="text-h4 white--text font-weight-medium">President Obama Holds his Final Press Conference</div>
-                  <div class="text-subtitle-1 white--text font-weight-regular">Автор:Админ  <v-icon class="white--text">mdi-clock-outline</v-icon>DECEMBER 30, 2016</div>
+                  <div class="text-h4 white--text font-weight-medium">{{truncateString(trend.title, 70)}}</div>
+                  <div class="text-subtitle-1 white--text font-weight-regular">Автор:Админ  <v-icon class="white--text">mdi-clock-outline</v-icon>
+                    {{$moment(trend.created_at).format("LLL")}}</div>
                 </div>
 
               </v-img>
@@ -34,16 +35,19 @@
               <v-progress-linear value="25" background-color="#ececec"></v-progress-linear>
             </template>
             </div>
-            <v-col v-for="(item, i) in 2" :key="i" cols="12" class="pl-0 pt-0">
-              <v-card color="white" light link to="/">
+            <v-col v-for="(item, i) in actual" :key="i" cols="12" class="pl-0 pt-0">
+              <v-card color="white" light link :to="'/news/' + item.alias">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
-                    <v-img  src="https://im0-tub-kz.yandex.net/i?id=4bd99e09e386ad730e3e009253cdb2fe-sr&n=13&exp=1"></v-img>
+                    <v-img  :src="$store.state.image + item.img"></v-img>
                   </v-avatar>
                   <div>
                     <v-card-title class="text-h-8">
-                      President Obama Holds his Final Press Conference
+                      {{truncateString(item.title, 45)}}
                     </v-card-title>
+                    <v-card-subtitle class="mt-2">
+                      <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>{{$moment(item.created_at).format('LLL')}}
+                    </v-card-subtitle>
                   </div>
                 </div>
               </v-card>
@@ -63,39 +67,40 @@
             </div>
             <v-row>
               <v-col cols="12" md="6">
-                <v-img src="http://gazetesanal.com/wp-content/uploads/2020/12/image-700x496.png"></v-img>
+                <v-img :src="$store.state.image + latestMaterial[latestMaterial.length - 1].img"></v-img>
               </v-col>
               <v-col cols="12" md="6">
                 <v-card-title class="pt-0">
-                  President Obama Holds his Final Press Conference
+                  {{truncateString(latestMaterial[latestMaterial.length - 1].title, 60)}}
                 </v-card-title>
-                <v-card-subtitle class="text-subtitle-1 s_title font-weight-regular">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</v-card-subtitle>
+                <v-card-subtitle class="text-subtitle-1 s_title font-weight-regular">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>{{$moment(latestMaterial[0].created_at).format('LLL')}}</v-card-subtitle>
                 <p class="text-subtitle-1 px-3">
-                  It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...
+                  {{truncateString(latestMaterial[latestMaterial.length - 1].subtitle, 70)}}
                 </p>
-                <v-btn>Читать далее</v-btn>
+                <v-btn :to="'/news/' + latestMaterial[latestMaterial.length - 1].alias">Читать далее</v-btn>
               </v-col>
             </v-row>
 
             <v-row>
-              <v-col cols="12" md="4" v-for="i in 3" :key="i">
+              <v-col cols="12" md="4" v-for="(item, i) in latestMaterial.slice(0,3)" :key="i">
                 <v-card
                   link
-                  to="/"
+                  :to="'/news/' + item.alias"
                   class="mx-auto"
                   max-width="344"
                 >
                   <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                    :src="$store.state.image + item.img"
                     height="200px"
                   ></v-img>
 
                   <v-card-title>
-                    Jokowi Seeks Investors for Indonesia’s Airports to Curb Deficit
+                    {{truncateString(item.title, 40)}}
                   </v-card-title>
 
                   <v-card-subtitle class="mt-2">
-                    <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016
+                    <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                    {{$moment(item.created_at).format('LLL')}}
                   </v-card-subtitle>
 
 <!--                  <v-card-actions>-->
@@ -121,34 +126,39 @@
               </template>
             </div>
             <v-col cols="12" md="12" class="pt-1">
-              <v-card link to="/" max-width="344">
-                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="200px"></v-img>
+              <v-card link :to="'/news/' + latestTrend[latestTrend.length - 1].alias" max-width="344">
+                <v-img :src="$store.state.image + latestTrend[latestTrend.length - 1].img" height="200px"></v-img>
                 <v-card-title>
-                  Benjamin Franklin S Method Of Habit Formation
+                  {{truncateString(latestTrend[latestTrend.length-1].title, 30)}}
                 </v-card-title>
                 <v-card-subtitle>
                   102 SHARES
                 </v-card-subtitle>
               </v-card>
             </v-col>
-            <v-col v-for="(item, i) in 2" :key="i" cols="12">
-              <v-card color="white" light link to="/">
+            <v-col v-for="(item, i) in latestTrend.slice(0,2)" :key="i" cols="12">
+              <v-card color="white" light link :to="'/news/'+item.alias">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
-                    <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                    <v-img  :src="$store.state.image + item.img"></v-img>
                   </v-avatar>
                   <div>
                     <v-card-title class="text-h-6">
-                      President Obama Holds his Final Press Conference
+                      {{truncateString(item.title, 30)}}
                     </v-card-title>
+
+                    <v-card-subtitle class="mt-2">
+                      <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                      {{$moment(item.created_at).format('LLL')}}
+                    </v-card-subtitle>
                   </div>
                 </div>
               </v-card>
             </v-col>
           </v-col>
-          <v-col cols="12" class="text-center">
-            <v-btn color="default">Все последние новости</v-btn>
-          </v-col>
+<!--          <v-col cols="12" class="text-center">-->
+<!--            <v-btn color="default">Все последние новости</v-btn>-->
+<!--          </v-col>-->
         </v-row>
         <!--      Конец последних новостей-->
         <hr>
@@ -156,35 +166,40 @@
         <v-row class="my-2">
           <v-col cols="12" md="8">
             <template>
-              <strong>Жизнь</strong>
+              <strong>{{categories[0].title}}</strong>
               <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
             </template>
             <v-row class="mt-1">
-              <v-col cols="12" md="6" v-for="(item,i) in 2" :key="i">
-                <v-card>
+              <v-col cols="12" md="6" v-for="(item,i) in categories[0].news.slice(0,2)" :key="i">
+                <v-card link :to="'/news/' + item.alias">
                   <v-img
-                    src="https://miro.medium.com/max/1080/1*-vTChpfjFWY0vfUMKMHMWQ.jpeg"
+                    :src="$store.state.image + item.img"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     height="250px"
                   >
-                    <v-card-title>Goldman Sees Indonesia Less Vulnerable to Selloff Than in 2013</v-card-title>
+                    <v-card-title>{{truncateString(item.title, 30)}}</v-card-title>
                   </v-img>
                 </v-card>
-                <v-card v-for="i in 2" :key="i" class="my-2" color="white" light link to="/">
+              </v-col>
+              <v-col cols="12" md="6" v-for="(item, i) in categories[0].news.slice(2,6)" :key="i">
+                <v-card color="white" light link :to="'/news/' + item.alias">
                   <div class="d-flex flex-no-wrap justify-space-between">
                     <v-avatar class="ma-3" size="125" tile>
-                      <v-img  src="https://i0.wp.com/traveltherapists.it/wp-content/uploads/2019/11/woman-holding-green-yellow-and-white-umbrella-standing-near-1344265-scaled.jpg"></v-img>
+                      <v-img  :src="$store.state.image + item.img"></v-img>
                     </v-avatar>
                     <div>
                       <v-card-title class="text-subtitle-1 font-weight-bold">
-                        3 Things Entrepreneurs Need To Do When Dealing With Depression
+                        {{truncateString(item.title, 30)}}
                       </v-card-title>
-                      <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                      <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                        {{$moment(item.created_at).format('LLL')}}
+                      </small>
                     </div>
                   </div>
                 </v-card>
               </v-col>
+
             </v-row>
           </v-col>
           <v-col cols="12" md="4">
@@ -194,14 +209,15 @@
                 <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
               </template>
             </div>
-            <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-              <v-card link to="/" max-width="344">
-                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
+            <v-col cols="12" md="12" v-for="(item, i) in popular.slice(0,2)" :key="i">
+              <v-card link :to="'/news/' + item.alias" max-width="344">
+                <v-img :src="$store.state.image + item.img" height="170px"></v-img>
                 <v-card-title>
-                  Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
+                  {{truncateString(item.title, 30)}}
                 </v-card-title>
                 <v-card-subtitle>
-                  <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                  <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                    {{$moment(item.created_at).format('LLL')}}</small>
                 </v-card-subtitle>
               </v-card>
             </v-col>
@@ -214,7 +230,7 @@
           <v-col cols="12" md="8">
             <div class="mb-4">
               <template>
-                <strong>БИЗНЕС</strong>
+                <strong>{{categories[1].title}}</strong>
                 <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
               </template>
             </div>
@@ -222,26 +238,26 @@
               <v-col cols="12" md="6">
                 <v-card
                   link
-                  to="/"
+                  :to="'/news/' + categories[1].news[0].alias"
                   class="mx-auto"
                   max-width="344"
                 >
                   <v-img
-                    src="https://images.pexels.com/photos/5305802/pexels-photo-5305802.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                    :src="$store.state.image + categories[1].news[0].img"
                     height="200px"
                   ></v-img>
 
                   <v-card-title>
-                    See The Unmatched Beauty Of The Great Lakes <br>
+                    {{truncateString(categories[1].news[0].title,30)}} <br>
                     <small class="s_title my-2">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
                   </v-card-title>
 
                   <v-card-subtitle>
-                    For most people, buying a new computer does not have to be as stressful as buying a new car. Nor does it have to be as expensive …
+                    {{truncateString(categories[1].news[0].subtitle,60)}}
                   </v-card-subtitle>
 
                   <v-card-actions>
-                    <v-btn>
+                    <v-btn link :to="'/news/' + categories[1].news[0].alias">
                       Читать далее
                     </v-btn>
 
@@ -249,15 +265,20 @@
                 </v-card>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card v-for="i in 3" :key="i" class="mb-2" color="white" light link to="/">
+                <v-card v-for="(item, i) in categories[1].news.slice(1,4)" :key="i" class="mb-2" color="white" light link :to="'/news/' + item.alias">
                   <div class="d-flex flex-no-wrap justify-space-between">
                     <v-avatar class="ma-3" size="125" tile>
-                      <v-img  src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173"></v-img>
+                      <v-img  :src="$store.state.image + item.img"></v-img>
                     </v-avatar>
                     <div>
                       <v-card-title class="text-subtitle-1 font-weight-bold">
-                        President Obama Holds his Final Press Conference
+                        {{truncateString(item.title, 30)}}
                       </v-card-title>
+
+                      <v-card-subtitle class="mt-2">
+                        <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                        {{$moment(item.created_at).format('LLL')}}
+                      </v-card-subtitle>
                     </div>
                   </div>
                 </v-card>
@@ -272,14 +293,15 @@
               </template>
             </div>
             <v-col cols="12" md="12">
-              <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-                <v-card link to="/" max-width="344">
-                  <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
+              <v-col cols="12" md="12" v-for="(item, i) in popular.slice(2,4)" :key="i">
+                <v-card link :to="'/news/' + item.alias" max-width="344">
+                  <v-img :src="$store.state.image + item.img" height="170px"></v-img>
                   <v-card-title>
-                    Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
+                    {{truncateString(item.title, 30)}}
                   </v-card-title>
                   <v-card-subtitle>
-                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                      {{$moment(item.created_at).format('LLL')}}</small>
                   </v-card-subtitle>
                 </v-card>
               </v-col>
@@ -294,44 +316,45 @@
       <v-container>
       <v-row class="py-5" >
         <v-col cols="12" md="6" class="p-0">
-          <v-card class="p-0">
+          <v-card class="p-0" link :to="'/news/' + news[0].alias">
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="$store.state.image + news[0].img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="440px"
             >
               <div class="main-news px-5">
-                <v-btn depressed class="btn btn-primary mb-2" color="#5168E1">
-                  FITNESS
+                <v-btn depressed class="btn btn-primary mb-2" color="#5168E1" link :to="'/category/' + news[0].category.alias">
+                  {{news[0].category.title}}
                 </v-btn>
-                <div class="text-h6 white--text font-weight-medium">Harness The Power Of Words In Your Life</div>
-                <small>Автор:Админ  <v-icon small class="white--text">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                <div class="text-h6 white--text font-weight-medium">{{truncateString(news[0].title, 30)}}</div>
+                <small>Автор:Админ  <v-icon small class="white--text">mdi-clock-outline</v-icon>
+                  {{$moment(news[0].created_at).format('LLL')}}</small>
               </div>
             </v-img>
           </v-card>
         </v-col>
         <v-col cols="12" md="3" class="p-0">
-          <v-card class="p-0" v-for="i in 2" :key="i">
+          <v-card class="p-0" v-for="(item, i) in news.slice(1,3)" :key="i" link :to="'/news/' + item.alias">
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="$store.state.image + item.img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="220px"
             >
-              <v-card-title>Новости категории 2</v-card-title>
+              <v-card-title>{{truncateString(item.title, 15)}}</v-card-title>
             </v-img>
           </v-card>
         </v-col>
         <v-col cols="12" md="3" class="p-0">
-          <v-card class="p-0" v-for="i in 2" :key="i">
+          <v-card class="p-0" v-for="(item, i) in news.slice(3,6)" :key="i" link :to="'/news/' + item.alias">
             <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="$store.state.image + item.img"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="220px"
             >
-              <v-card-title>Новости категории 2</v-card-title>
+              <v-card-title>{{truncateString(item.title, 15)}}</v-card-title>
             </v-img>
           </v-card>
         </v-col>
@@ -346,62 +369,68 @@
         <v-col cols="12" md="8">
           <div class="mb-4">
             <template>
-              <strong>ТЕХНО</strong>
+              <strong>{{categories[2].title}}</strong>
               <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
             </template>
           </div>
           <v-row>
             <v-col cols="12" md="6">
-              <v-img src="https://www.ekonomihaberler.com/wp-content/uploads/2020/04/EFT-Hesaba-Ne-Zaman-Ge%C3%A7er-3.jpg"></v-img>
+              <v-img :src="$store.state.image + categories[2].news[0].img"></v-img>
             </v-col>
             <v-col cols="12" md="6" class="pt-0">
               <v-card-title>
-                Why Millennials Need to Save Twice as Much as Boomers Did
+                {{truncateString(categories[2].news[0].title, 30)}}
               </v-card-title>
-              <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+              <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                {{$moment(categories[2].news[0].created_at).format('LLL')}}</small>
               <p class="text-subtitle-1 px-3">
-                It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...              </p>
-              <v-btn>Читать далее</v-btn>
+                {{truncateString(categories[2].news[0].subtitle, 60)}}
+              </p>
+              <v-btn link :to="'/news/' + categories[2].news[0].alias">Читать далее</v-btn>
             </v-col>
-            <v-col cols="12" md="6" v-for="i in 2" :key="i">
-              <v-card v-for="i in 2" :key="i" class="my-2" color="white" light link to="/">
+            <v-col cols="12" md="6" v-for="(item, i) in categories[2].news.slice(1,4)" :key="i">
+              <v-card color="white" light link :to="'/news/' + item.alias">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
-                    <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                    <v-img  :src="$store.state.image + item.img"></v-img>
                   </v-avatar>
                   <div>
                     <v-card-title class="text-subtitle-1 font-weight-bold">
-                      President Obama Holds his Final Press Conference
+                      {{truncateString(item.title, 30)}}
                     </v-card-title>
-                    <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
+                    <small class="s_title ml-3"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                      {{$moment(item.created_at).format('LLL')}}</small>
                   </div>
                 </div>
               </v-card>
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="4">
-          <div class="mb-2 ml-2">
-            <template>
-              <strong>Популярное</strong>
-              <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
-            </template>
-          </div>
-            <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-              <v-card link to="/" max-width="344">
-                <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
-                <v-card-title>
-                  Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
-                </v-card-title>
-                <v-card-subtitle>
-                  <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
-                </v-card-subtitle>
-              </v-card>
+          <v-col cols="12" md="4">
+            <div class="mb-2 ml-2">
+              <template>
+                <strong>Популярное</strong>
+                <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
+              </template>
+            </div>
+            <v-col cols="12" md="12">
+              <v-col cols="12" md="12" v-for="(item, i) in popular.slice(4,6)" :key="i">
+                <v-card link :to="'/news/' + item.alias" max-width="344">
+                  <v-img :src="$store.state.image + item.img" height="170px"></v-img>
+                  <v-card-title>
+                    {{truncateString(item.title, 30)}}
+                  </v-card-title>
+                  <v-card-subtitle>
+                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                      {{$moment(item.created_at).format('LLL')}}</small>
+                  </v-card-subtitle>
+                </v-card>
+              </v-col>
             </v-col>
-        </v-col>
-          <v-col cols="12" class="text-center">
-            <v-btn color="default">Все новости Категории 3</v-btn>
           </v-col>
+<!--          <v-col cols="12" class="text-center">-->
+<!--            <v-btn color="default">Все новости Категории 3</v-btn>-->
+<!--          </v-col>-->
         </v-row>
       </v-container>
     </section>
@@ -435,18 +464,21 @@
                 <v-progress-linear value="7" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
               </template>
             </div>
-            <v-row v-for="i in 5" :key="i">
+            <v-row v-for="(item, i) in conference" :key="i">
               <v-col cols="12" md="6">
-                <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                <v-img :src="$store.state.image + item.img"></v-img>
               </v-col>
               <v-col cols="12" md="6" class="pt-0">
                 <v-card-title>
-                  <h3>Steps In Installing Rack Mount Lcd Monitors</h3>
+                  <h3>{{truncateString(item.title, 60)}}</h3>
                 </v-card-title>
-                <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
-                <p class="text-subtitle-1 px-3 mt-2">
-                  It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has...              </p>
-                <v-btn>Читать далее</v-btn>
+                <v-card-subtitle>
+                  Начало и конец конференции<v-icon small color="primary">mdi-clock-outline</v-icon>{{$moment.utc(item.start).format("LLL")}} - {{$moment.utc(item.end).format("LLL")}}
+                </v-card-subtitle>
+                <small class="s_title my-2 ml-3">Автор: <strong><span class="color_blue">Админ</span></strong>  <v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                  {{$moment(item.created_at).format('LLL')}}
+                </small>
+                <v-btn class="mt-3" link :to="'/conference/' + item.alias">Читать далее</v-btn>
               </v-col>
             </v-row>
           </v-col>
@@ -470,15 +502,19 @@
                   <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
                 </template>
               </div>
-              <v-card v-for="(item, i) in 3" :key="i" color="white" light link to="/" class="mb-2">
+              <v-card v-for="(item, i) in popular.slice(6,9)" :key="i" color="white" light link :to="'/news/' + item.alias" class="mb-2">
                 <div class="d-flex flex-no-wrap justify-space-between">
                   <v-avatar class="ma-3" size="125" tile>
-                    <v-img  src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                    <v-img  :src="$store.state.image + item.img"></v-img>
                   </v-avatar>
                   <div>
                     <v-card-title class="text-h-6">
-                      President Obama Holds his Final Press Conference
+                      {{truncateString(item.title, 30)}}
                     </v-card-title>
+                    <v-card-subtitle>
+                      <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>
+                        {{$moment(item.created_at).format('LLL')}}</small>
+                    </v-card-subtitle>
                   </div>
                 </div>
               </v-card>
@@ -486,26 +522,36 @@
             <v-col cols="12">
                 <v-sheet height="340px" color="yellow">Ads</v-sheet>
             </v-col>
-              <div class="mb-2 ml-2">
-                <template>
-                  <strong>Вас заинтересует</strong>
-                  <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>
-                </template>
-              </div>
-              <v-col cols="12" md="12" v-for="i in 2 " :key="i">
-                <v-card link to="/" max-width="344">
-                  <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>
-                  <v-card-title>
-                    Converter Ipod Video Taking Portable Video Viewing To A Whole New Level
-                  </v-card-title>
-                  <v-card-subtitle>
-                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>
-                  </v-card-subtitle>
-                </v-card>
-              </v-col>
+<!--              <div class="mb-2 ml-2">-->
+<!--                <template>-->
+<!--                  <strong>Вас заинтересует</strong>-->
+<!--                  <v-progress-linear value="10" background-color="#ececec" color="#5168E1" height="2"></v-progress-linear>-->
+<!--                </template>-->
+<!--              </div>-->
+<!--              <v-col cols="12" md="12" v-for="i in 2 " :key="i">-->
+<!--                <v-card link to="/" max-width="344">-->
+<!--                  <v-img src="https://avatars.mds.yandex.net/get-ynews/2983206/9cb3bd3d16fad7bdbc9fee7d90dd0c1f/254x173" height="170px"></v-img>-->
+<!--                  <v-card-title>-->
+<!--                    Converter Ipod Video Taking Portable Video Viewing To A Whole New Level-->
+<!--                  </v-card-title>-->
+<!--                  <v-card-subtitle>-->
+<!--                    <small class="s_title"><v-icon small color="#2E9FFF">mdi-clock-outline</v-icon>DECEMBER 30, 2016</small>-->
+<!--                  </v-card-subtitle>-->
+<!--                </v-card>-->
+<!--              </v-col>-->
 
           </v-col>
         </v-row>
+        <v-col cols="12">
+          <template v-if="last_page > 1">
+            <div class="text-center mt-4">
+              <v-pagination
+                v-model="current_page"
+                :length="last_page"
+              ></v-pagination>
+            </div>
+          </template>
+        </v-col>
       </v-container>
 
 
@@ -537,6 +583,39 @@ export default {
         {url:"",icon:"mdi-linkedin"},
       ],
     }
+  },
+  methods: {
+    truncateString(str, num) {
+      // If the length of str is less than or equal to num
+      // just return str--don't truncate it.
+      if (str.length <= num) {
+        return str
+      }
+      // Return str truncated with '...' concatenated to the end of str.
+      return str.slice(0, num) + '...'
+    }
+  },
+  created() {
+    // console.log(this.trend)
+    // console.log(this.actual)
+    console.log(this.conference)
+    // console.log(this.news)
+  },
+
+
+  async asyncData({$axios}){
+    const data = await $axios.$get("/get-news");
+    const trend = data.trend
+    const actual = data.actual
+    const categories = data.categories
+    const latestMaterial = data.latestMaterial
+    const latestTrend = data.latestTrend
+    const news = data.news
+    const popular = data.popular
+    const conference = data.conference.data
+    const current_page = data["conference"]["current_page"];
+    const last_page = data["conference"]["last_page"];
+    return {trend, actual, categories, latestMaterial, latestTrend, news, popular, conference, current_page, last_page}
   }
 }
 </script>
@@ -561,5 +640,11 @@ export default {
   border-radius: 0;
   background-color: transparent!important;
   color: black!important;
+}
+.truncate {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
