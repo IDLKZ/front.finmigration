@@ -595,12 +595,7 @@ export default {
       return str.slice(0, num) + '...'
     }
   },
-  created() {
-    // console.log(this.trend)
-    // console.log(this.actual)
-    console.log(this.conference)
-    // console.log(this.news)
-  },
+
 
 
   async asyncData({$axios}){
